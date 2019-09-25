@@ -12,6 +12,11 @@ const itemSchema = new mongoose.Schema({
   completed: {
     type: Boolean,
     required: true
+  },
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
   }
 }, {
   timestamps: true
