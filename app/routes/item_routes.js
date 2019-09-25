@@ -28,8 +28,9 @@ const requireToken = passport.authenticate('bearer', { session: false })
 // instantiate a router (mini app that only handles routes)
 const router = express.Router()
 
+// INDEX
 router.get('/items', requireToken, (req, res, next) => {
-  Item.find()
+  Item.find({ owner: req.user.id })
     .then(items => {
       return items.map(item => item.toObject())
     })
@@ -37,6 +38,7 @@ router.get('/items', requireToken, (req, res, next) => {
     .catch(next)
 })
 
+// CREATE
 router.post('/items', requireToken, (req, res, next) => {
   // set owner of new example to be current user
   req.body.item.owner = req.user.id
@@ -48,7 +50,9 @@ router.post('/items', requireToken, (req, res, next) => {
     .catch(next)
 })
 
-router.patch('/items/:id', (req, res, next) => {
+
+// UPDATE
+router.patch('/items/:id', requireToken, removeBlanks, (req, res, next) => {
   // if the client attempts to change the `owner` property by including a new
   // owner, prevent that by deleting that key/value pair
   // delete req.body.example.owner
@@ -57,7 +61,7 @@ router.patch('/items/:id', (req, res, next) => {
     .then(item => {
       // pass the `req` object and the Mongoose record to `requireOwnership`
       // it will throw an error if the current user isn't the owner
-      // requireOwnership(req, item)
+      requireOwnership(req, item)
 
       // pass the result of Mongoose's `.update` to the next `.then`
       return item.updateOne(req.body.item)
@@ -69,22 +73,26 @@ router.patch('/items/:id', (req, res, next) => {
 })
 
 // SHOW
-router.get('/items/:id', (req, res, next) => {
+router.get('/items/:id', requireToken, (req, res, next) => {
   // req.params.id will be set based on the `:id` in the route
   Item.findById(req.params.id)
     // .then(handle404)
     // if `findById` is succesful, respond with 200 and "example" JSON
+    // .then(item => {
+    //   requireOwnership(req, item)
+    // })
     .then(item => res.status(200).json({ item: item.toObject() }))
     // if an error occurs, pass it to the handler
     .catch(next)
 })
 
-router.delete('/items/:id', (req, res, next) => {
+// DELETE
+router.delete('/items/:id', requireToken, (req, res, next) => {
   Item.findById(req.params.id)
     // .then(handle404)
     .then(item => {
       // throw an error if current user doesn't own `example`
-      // requireOwnership(req, example)
+      requireOwnership(req, item)
       // delete the example ONLY IF the above didn't throw
       item.deleteOne()
     })
