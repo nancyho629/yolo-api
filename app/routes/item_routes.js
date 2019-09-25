@@ -1,7 +1,5 @@
 const express = require('express')
 
-
-
 const passport = require('passport')
 
 // pull in Mongoose model for items
@@ -50,14 +48,13 @@ router.post('/items', requireToken, (req, res, next) => {
     .catch(next)
 })
 
-
-// UPDATE
 router.patch('/items/:id', requireToken, removeBlanks, (req, res, next) => {
   // if the client attempts to change the `owner` property by including a new
   // owner, prevent that by deleting that key/value pair
   // delete req.body.example.owner
 
   Item.findById(req.params.id)
+    .then(handle404)
     .then(item => {
       // pass the `req` object and the Mongoose record to `requireOwnership`
       // it will throw an error if the current user isn't the owner
@@ -76,11 +73,11 @@ router.patch('/items/:id', requireToken, removeBlanks, (req, res, next) => {
 router.get('/items/:id', requireToken, (req, res, next) => {
   // req.params.id will be set based on the `:id` in the route
   Item.findById(req.params.id)
-    // .then(handle404)
+    .then(handle404)
     // if `findById` is succesful, respond with 200 and "example" JSON
-    // .then(item => {
-    //   requireOwnership(req, item)
-    // })
+    .then(item => {
+      requireOwnership(req, item)
+    })
     .then(item => res.status(200).json({ item: item.toObject() }))
     // if an error occurs, pass it to the handler
     .catch(next)
@@ -89,7 +86,7 @@ router.get('/items/:id', requireToken, (req, res, next) => {
 // DELETE
 router.delete('/items/:id', requireToken, (req, res, next) => {
   Item.findById(req.params.id)
-    // .then(handle404)
+    .then(handle404)
     .then(item => {
       // throw an error if current user doesn't own `example`
       requireOwnership(req, item)
