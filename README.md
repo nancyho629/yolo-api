@@ -21,7 +21,8 @@ Once you've signed up and signed in, you can create a Yolo Bucket list item. If 
 The team began with a formal planning session to determine the entity relationship diagram and wireframe. It was agreed upon that the backend API would be coded in a group pair programming session so everyone would have exposure to setting up the model and routes. It also helped us jumpstart with using GitHub as a group to pull the changes into our local repositories.
 
 ## Entity Relationship Diagram
-![Yolo ERD](./public/BKTERD.png)
+![](./public/BKTERD.png)
+
 <img src="https://i.imgur.com/7dhXW16.jpg">
 
 ## Routes
