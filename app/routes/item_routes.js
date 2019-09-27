@@ -30,7 +30,8 @@ const router = express.Router()
 router.get('/items', requireToken, (req, res, next) => {
   Item.find({ owner: req.user.id })
     .then(items => {
-      return items.map(item => item.toObject())
+      items.map(item => item.toObject())
+      return items.reverse()
     })
     .then(items => res.status(200).json({ items: items }))
     .catch(next)
