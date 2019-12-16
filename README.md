@@ -1,18 +1,18 @@
 # Yolo Bucket
-Yolo Bucket is the place to keep track of all the things you've always wanted to do. You only live once after all!
+YOLO Bucket is the place to keep track of all the number of experiences or achievements you have or accomplish during your lifetime. You only live once after all!
 
 Once you've signed up and signed in, you can create a Yolo Bucket list item. If you've always wanted to go skydiving you can create this adventure, give a description and submit! Once you've completed this you can mark it complete!
 
-- [Yolo Bucket Deployed Website](https://team-elmn.github.io/yolo-client/)
-- [Yolo Bucket Client Repo](https://github.com/Team-ELMN/yolo-client)
-- [Yolo Bucket API Repo](https://github.com/Team-ELMN/yolo-api)
-- [Yolo Buckket API Deployed](https://yolo-bucket-api.herokuapp.com/)
+- [Yolo Bucket Deployed Website](https://nancyho629.github.io/yolo-client/)
+- [Yolo Bucket Client Repo](https://github.com/nancyho629/yolo-client)
+- [Yolo Bucket API Repo](https://github.com/nancyho629/yolo-api)
+- [Yolo Buckket API Deployed](https://yoloapi.herokuapp.com/)
 
 ## Technologies Used
 * Mongoose
 * MongoDB
-* Express API
-* Node
+* ExpressJS
+* Node.js
 
 ## Future Features
 - Implement a one to many relationship so users can have many bucketlists and bucketlists can have many items
